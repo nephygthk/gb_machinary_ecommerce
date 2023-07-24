@@ -18,6 +18,7 @@ class Product(models.Model):
 class Media(models.Model):
     product = models.ForeignKey(Product, related_name='media', on_delete=models.CASCADE)
     image = models.FileField(upload_to='product_images', null=True, blank=True)
+    is_featured = models.BooleanField(default=False)
 
     def __str__(self):
         return self.product.title
