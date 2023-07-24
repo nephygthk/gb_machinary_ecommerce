@@ -33,7 +33,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     
 
 class MyClient(models.Model):
-    c_email = models.EmailField(_("email address"), unique=True)
+    c_email = models.EmailField()
     c_full_name = models.CharField(max_length=255)
     c_country = models.CharField(max_length=100, null=True, blank=True)
     c_city = models.CharField(max_length=100, null=True, blank=True)

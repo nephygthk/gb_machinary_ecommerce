@@ -1,0 +1,73 @@
+{% extends '../base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .p-card img{
+      height: 200px;
+      object-fit: cover;
+    }
+</style>
+
+
+<div class="banner">
+    <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="2000">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item">
+            <div class="overlay"></div>
+            <video src="{% static 'images/video-two.mp4' %}" autoplay loop muted class="d-block w-100 img-fluid"></video>
+            <div class="carousel-caption">
+              <h5>ENGINEERING EQUIPMENTS</h5>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor, neque esse! Sunt, accusamus eum autem quae in laudantium nihil eaque animi blanditiis mollitia, aliquid quis. Eos voluptatem tenetur nihil quibusdam..</p>
+              <!-- <p><a href="">Get Started</a></p> -->
+            </div>
+        </div>
+        <div class="carousel-item active">
+          <div class="overlay"></div>
+          <video src="{% static 'images/video-five.mp4' %}" autoplay loop muted class="d-block w-100 img-fluid"></video>
+          <div class="carousel-caption">
+            <h5>ENGINEERING EQUIPMENTS</h5>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor, neque esse! Sunt, accusamus eum autem quae in laudantium nihil eaque animi blanditiis mollitia, aliquid quis. Eos voluptatem tenetur nihil quibusdam..</p>
+            <!-- <p><a href="">Get Started</a></p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<!-- products -->
+<section id="products">
+    <div class="container py-5">
+      <h1 class="text-center text-danger mb-5">Available Products</h1>
+      <div class="row">
+        {% for product in products %}
+        <div class="col-md-3 mb-4 ">
+          <div class="card  p-card h-100">
+            {% for imgg in product.media.all %}
+              {% if imgg.is_featured %}
+              <img src="{{imgg.image.url}}" class="card-img-top">
+              {% endif %}
+            {% endfor %}
+            <div class="card-body card-body-smile" >
+              <h5 class="card-title">{{product.title| slice:'0:31'}}....</h5>
+              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+              <a href="{% url 'frontend:product_detail' product.id %}" class="btn btn-danger fw-bold btn-sm w-100 h-auto">View Details</a>
+            </div>
+           
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <hr>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+        <a href="{% url 'frontend:all_products' %}" class="btn btn-danger fw-bold rounded-pill px-5">View More Products</a>
+      </div>
+      
+    </div>
+</section>
+{% endblock %}

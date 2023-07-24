@@ -237,12 +237,29 @@ body {
 }
 
 
+/* product detail page */
+.banner-product-detail{
+    background-image: linear-gradient(rgba(3, 3, 48, 0.7),rgba(22, 13, 13, 0.404)), url(/static/images/banner-product.jpeg);
+    height: 300px;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    color: #fff; 
+}
+.banner-product-detail a{
+    text-decoration: none;
+    color: #fff;
+}
 
+.banner-product-detail a:hover{
+    color: #6e0303;
+    font-weight: bold;
+}
 
 /* about page */
 
 .banner-about{
-    background-image: linear-gradient(rgba(3, 3, 48, 0.7),rgba(22, 13, 13, 0.404)), url(/static/images/hero.jpg);
+    background-image: linear-gradient(rgba(3, 3, 48, 0.7),rgba(22, 13, 13, 0.404)), url(/static/images/about-hero.jpg);
     height: 300px;
     background-position: center; 
     background-repeat: no-repeat; 

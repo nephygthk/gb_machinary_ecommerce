@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login 
-from django.views.generic import ListView, TemplateView, FormView
+from django.views.generic import ListView, TemplateView, FormView, DetailView
 
 from store.models import Product, Media
 from account.forms import RegistrationForm, UserLoginForm
@@ -39,7 +39,25 @@ class AboutView(TemplateView):
                 return HttpResponseRedirect(reverse_lazy('account:admin_dashboard'))
             else:
                 return HttpResponseRedirect(reverse_lazy('account:customer_dashboard'))
+        return super().dispatch(request, *args, **kwargs)
 
+
+class AllProductView(ListView):
+    model = Product
+    context_object_name = 'products'
+    template_name = 'frontend/products.html'
+
+
+class ProductDetailView(DetailView):
+    model = Product
+    context_object_name = 'product'
+    template_name = 'frontend/product_detail.html'
+
+    def get_context_data(self, **kwargs):
+       context = super(ProductDetailView, self).get_context_data(**kwargs)
+       context['product_images'] = Media.objects.filter(product=self.object)
+       return context
+    
 
 class RegisterUserView(FormView):
     form_class = RegistrationForm

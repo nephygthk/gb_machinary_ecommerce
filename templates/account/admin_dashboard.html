@@ -1,5 +1,6 @@
 {% extends '../base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block content %}
 <div class="admin-dashboard">
@@ -16,7 +17,22 @@
     <div class="row">
         <div class="col-md-12">
             <h1>Dashboard</h1>
-            <p class="lead mb-0">Welcome <span class="text-success fw-bold">Admin</span></p>
+            <div class="row justify-content-between align-item-center">
+              <div class="col-7 col-md-10">
+                <p class="lead mb-0">Welcome <span class="text-success fw-bold">Admin</span></p>
+              </div>
+              <div class="col-5 col-md-2"><a href="" class="btn btn-primary btn-sm fw-bold">Add new Product</a></div>
+            </div>
+            
+            {% if messages %}
+              {% for message in messages %}
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      {{message}}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              {% endfor %}
+            {% endif %}
+                    
             <hr class="mt-0">
         </div>
     </div>
@@ -64,6 +80,7 @@
                               <tr>
                                 <th scope="col">Full Name</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Country</th>
                                 <th scope="col"></th>
                               </tr>
                             </thead>
@@ -71,7 +88,8 @@
                               <tr>
                                 <td>Mark Okechukwu</td>
                                 <td>Ottomark@gmail.com</td>
-                                <td><a href="" class="btn btn-secondary btn-sm fw-bold text-white">Details</a></td>
+                                <td>Canada</td>
+                                <td><a href="" class="btn btn-danger btn-sm fw-bold text-white">Delete</a></td>
                               </tr>
                             </tbody>
                         </table>
@@ -92,6 +110,7 @@
                                 <th scope="col">Order Date</th>
                                 <th scope="col">Customer</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Total</th>
                                 <th scope="col">Paid</th>
                                 <th scope="col">Balance</th>
                                 <th scope="col">Status</th>
@@ -101,17 +120,60 @@
                               </tr>
                             </thead>
                             <tbody>
+                              {% for order in orders %}
                               <tr>
-                                <td>26, July 2023 12:30PM</td>
-                                <td>Mark Okechukwu</td>
-                                <td>customer@email.com</td>
-                                <td>$350,000</td>
-                                <td>$350,000</td>
-                                <td><strong>Pending In Progess</strong></td>
-                                <td><a href="" class="btn btn-info btn-sm fw-bold text-white">Edit</a></td>
-                                <td><a href="" class="btn btn-danger btn-sm fw-bold text-white">Delete</a></td>
+                                <td>{{order.created}}</td>
+                                <td>{{order.full_name}}</td>
+                                <td>{{order.email}}</td>
+                                <td>${{order.total|intcomma}}</td>
+                                <td>${{order.paid|intcomma}}</td>
+                                <td>${{order.balance|intcomma}}</td>
+                                <td>
+                                {% if order.status == 'Pending' %}
+                                  <strong class="text-warning">{{order.status}}</strong>
+                                {% elif order.status == 'Delivery in Progress' %}
+                                  <strong class="text-primary">{{order.status}}</strong>
+                                {% elif order.status == 'Stopped by custom' %}
+                                  <strong class="text-danger">{{order.status}}</strong>
+                                {% else %}
+                                  <strong class="text-success">{{order.status}}</strong>
+                                {% endif %}
+                                </td>
+                                <td><a href="{% url 'order:edit_order' order.id %}" class="btn btn-info btn-sm fw-bold text-white">Update</a></td>
+                                <!-- <td><a href="" class="btn btn-info btn-sm fw-bold text-white" data-bs-toggle="modal" data-bs-target="#edit-order{{order.id}}">Update</a></td> -->
+                                <td><a href="{% url 'order:delete_order' order.id %}" class="btn btn-danger btn-sm fw-bold text-white">Delete</a></td>
                                 <td><a href="" class="btn btn-primary btn-sm fw-bold text-white">Receipt</a></td>
                               </tr>
+
+                              <!-- update order model -->
+                              <!-- <div class="modal fade" id="edit-order{{order.id}}" tabindex="-1" aria-labelledby="edit-order{{order.id}}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="exampleModalLabel">Update Order Status and Amount Paid for {{ order.full_name}}</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <form action="{% url 'order:edit_order' order.id%}" method="POST">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                          <label for="status" class="form-label">Paid</label>
+                                          <input type="text" value="{{order.paid}}" class="form-control" id="status">
+                                        </div>
+                                        <div class="mb-3">
+                                          <label for="status" class="form-label">Status</label>
+                                          <input type="text" value="{{order.status}}" class="form-control" id="status">
+                                        </div>
+                                      </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div> -->
+                              {% endfor %}
                             </tbody>
                         </table>
                     </div>

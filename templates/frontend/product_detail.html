@@ -1,0 +1,113 @@
+{% extends '../base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<style>
+  .small-img{
+    height: 110px;
+    width: 130px;
+    object-fit: cover;
+  }
+</style>
+
+<!-- banner -->
+<div class="banner-product-detail">
+    <div class="container py-5">
+      <div class="row justify-content-center align-items-center py-5 mt-3">
+          <div class="col-8">
+              <h3 class="text-center"><a href="">Home</a>/ Product Details </h3>
+          </div>
+      </div>
+    </div>
+</div>
+
+<!-- details -->
+<div class="container py-5">
+  <div class="row py-4">
+    <!-- <h5>product.name</h5> -->
+    <div class="col-md-6">
+      {% for imgg in product.media.all %}
+        {% if imgg.is_featured %}
+        <img src="{{imgg.image.url}}" class="card-img-top" id="ProductImg">
+        {% endif %}
+      {% endfor %}
+      <div class="row mt-4">
+        {% for image in product_images %}
+        <div class="col-3 mb-2">
+          <img src="{{image.image.url}}" class="img-fluid small-img">
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <h3>{{product.title}}</h3>
+      <hr class="mt-0">
+      <h3 class="text-primary">Description</h3>   
+      <p>{{product.description}}</p>
+      <hr class="mt-0">
+      <h3>Prize: ${{product.price|intcomma}}</h3>
+      <a href="" class="btn btn-secondary fw-bold btn-sm mt-4 w-50 h-auto">Add To Cart</a>
+    </div>
+  </div>
+</div>
+
+
+
+
+  
+  <!-- mode section -->
+  <section id="mode-section-2">
+    <div class="container pt-5 pb-3 text-white">
+      <div class="row py-5">
+        <div class="col-md-6">
+          <h3 class="text-info">--  LOCATION</h3> 
+          <h1>Our International Markets</h1>
+          <p>From Alaska to Colombia, Europe, Africa to the Middle East and around the world, GB has the products, services and expertise to ensure your drilling operation runs efficiently and safely.</p>
+          <p>We are always ready to help solve the subsurface energy challenges of today and tomorrow, wherever and whatever they may be.</p>
+        </div>
+        <div class="col-md-6">
+            <img src="{% static 'images/worker3.jpg' %}" alt="" class="img-fluid" style="opacity: 0.3;">
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- company we work with -->
+<section id="compay-with">
+    <div class="container py-5">
+      <h1 class="text-center text-danger mb-5">
+        Some Of Our Regular Customers
+      </h1>
+      <div class="row bg-light">
+        <div class="col-3 work-with">
+          <img src="{% static 'images/aramco.png' %}" alt="" class="img-fluid">
+        </div>
+        <div class="col-3 work-with">
+          <img src="{% static 'images/snpmf.png' %}" alt="" class="img-fluid">
+        </div>
+        <div class="col-3 work-with">
+          <img src="{% static 'images/exxonmobile.png' %}" alt="" class="img-fluid" >
+        </div>
+        <div class="col-3 work-with">
+          <img src="{% static 'images/pccyf.png' %}" alt="" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+<script>
+  var ProductImg = document.getElementById("ProductImg");
+    var SmallImg = document.getElementsByClassName("small-img");
+    for(let i = 0; i < SmallImg.length; i++){
+        SmallImg[i].onclick = function()
+        {
+            ProductImg.src = SmallImg[i].src;
+        }
+    }
+</script>
+{% endblock %}

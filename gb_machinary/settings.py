@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django.contrib.humanize',
+
     'store',
     'account',
     'frontend',
+    'order',
 ]
 
 MIDDLEWARE = [
