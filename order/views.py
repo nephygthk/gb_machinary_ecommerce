@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.generic import UpdateView
 from django.urls import reverse_lazy
@@ -8,7 +10,7 @@ from . models import Order
 from . import forms
 
 
-class EditOrderView(UpdateView):
+class EditOrderView(LoginRequiredMixin, UpdateView):
     model = Order
     form_class = forms.EditOrderForm
     template_name = 'orders/edit_order.html'
@@ -24,6 +26,7 @@ class EditOrderView(UpdateView):
         return HttpResponseRedirect(self.get_success_url())
     
 
+@login_required(login_url='account:login')
 def delete_order(request, pk):
     order = Order.objects.get(pk=pk)
     order.delete()

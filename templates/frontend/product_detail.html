@@ -4,10 +4,22 @@
 
 {% block content %}
 <style>
+  #ProductImg{
+    height: 450px;
+    object-fit: cover;
+  }
   .small-img{
     height: 110px;
     width: 130px;
     object-fit: cover;
+  }
+  @media only screen and (max-width:767px) {
+    #ProductImg{
+      height: 300px;
+    }
+    .small-img{
+      height: 80px;
+    }
   }
 </style>
 
@@ -74,31 +86,6 @@
       </div>
     </div>
   </section>
-
-  <!-- company we work with -->
-<section id="compay-with">
-    <div class="container py-5">
-      <h1 class="text-center text-danger mb-5">
-        Some Of Our Regular Customers
-      </h1>
-      <div class="row bg-light">
-        <div class="col-3 work-with">
-          <img src="{% static 'images/aramco.png' %}" alt="" class="img-fluid">
-        </div>
-        <div class="col-3 work-with">
-          <img src="{% static 'images/snpmf.png' %}" alt="" class="img-fluid">
-        </div>
-        <div class="col-3 work-with">
-          <img src="{% static 'images/exxonmobile.png' %}" alt="" class="img-fluid" >
-        </div>
-        <div class="col-3 work-with">
-          <img src="{% static 'images/pccyf.png' %}" alt="" class="img-fluid">
-        </div>
-      </div>
-    </div>
-  </section>
-
-
 
 <script>
   var ProductImg = document.getElementById("ProductImg");

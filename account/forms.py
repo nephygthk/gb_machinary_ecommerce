@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django import forms
 
 from .models import Customer
@@ -53,3 +53,20 @@ class RegistrationForm(forms.ModelForm):
             {'class': 'form-control mb-3'})
         self.fields['password2'].widget.attrs.update(
             {'class': 'form-control mb-3'})
+
+
+class CustomerChangePasswordForm(PasswordChangeForm):
+
+    # def clean_new_password1(self):
+    #     password = self.cleaned_data.get("new_password1")
+    #     if len(password) < 12:
+    #         raise forms.ValidationError("Password must be at least 12 characters.")
+    #     return password
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control mb-3'})
+    
+    
