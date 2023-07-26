@@ -39,6 +39,9 @@
               </li>
             {% endif %}
           {% endif %}
+          <li class="nav-item mt-md-2 pe-2">
+            <div id="google_translate_element"></div>
+          </li>
         </ul>
         {% if request.user.is_authenticated %}
           <a href="{% url 'account:logout' %}" class="btn btn-danger fw-bold rounded-pill px-4 ms-5 mb-5 mb-sm-0">Logout</a>
@@ -46,6 +49,23 @@
           <a href="{% url 'frontend:register' %}" class="btn btn-danger fw-bold rounded-pill px-4 mb-5 mb-sm-0">Register</a>
           <a href="{% url 'frontend:login' %}" class="btn btn-danger fw-bold rounded-pill px-4 ms-5 mb-5 mb-sm-0">Login</a>
         {% endif %}
+        <a type="button" role="button" href="{% url 'basket:basket_summary' %}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+          data-bs-custom-class="custom-tooltip" data-bs-title="Click to View Cart Items"  class=" border-0 basket-btn px-4">
+            {% with total_qty=basket|length %}
+            <div id="basket-qty" class="basket-qty">
+              {% if total_qty > 0 %}
+              {{ total_qty }}
+              {% else %}
+              0
+              {% endif %}
+            </div>
+            {% endwith %}
+            <div>
+              <i class="bi bi-cart cart-icon"></i>
+            </div>
+          </a>
       </div>
     </div>
 </nav>
+
+<!-- btn btn-outline-secondary -->

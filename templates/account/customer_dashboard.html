@@ -64,9 +64,9 @@
                                 <td>{{order.email}}</td>
                                 <td>${{order.total|intcomma}}</td>
                                 <td>${{order.paid|intcomma}}</td>
-                                <td>${{order.balance|intcomma}}</td>
+                                <td>${{order.get_final_balance|intcomma}}</td>
                                 <td>
-                                {% if order.status == 'Pending' %}
+                                {% if order.status == 'Pending, awaiting payment' %}
                                   <strong class="text-warning">{{order.status}}</strong>
                                 {% elif order.status == 'Delivery in Progress' %}
                                   <strong class="text-primary">{{order.status}}</strong>

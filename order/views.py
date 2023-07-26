@@ -6,7 +6,7 @@ from django.views.generic import UpdateView
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 
-from . models import Order
+from . models import Order, OrderItem
 from . import forms
 
 
@@ -32,4 +32,12 @@ def delete_order(request, pk):
     order.delete()
     messages.success(request, 'Order was deleted successfully')
     return redirect('account:admin_dashboard')
+
+
+def view_receipt(request, pk):
+    order = Order.objects.get(pk=pk)
+    order_items = OrderItem.objects.filter(order=order)
+
+    context = {'order':order, 'order_items':order_items}
+    return render(request, 'orders/view_receipt.html', context)
         

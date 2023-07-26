@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django import forms
 
-from .models import Customer
+from .models import Customer, MyClient
 
 
 class UserLoginForm(AuthenticationForm):
@@ -63,6 +63,19 @@ class CustomerChangePasswordForm(PasswordChangeForm):
     #         raise forms.ValidationError("Password must be at least 12 characters.")
     #     return password
     
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control mb-3'})
+
+
+class ClientForm(forms.ModelForm):
+    class Meta:
+        model = MyClient
+        fields = '__all__'
+        exclude = ['c_address', 'c_created']
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

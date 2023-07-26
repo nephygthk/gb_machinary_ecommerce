@@ -1,5 +1,6 @@
 {% extends '../base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block content %}
 
@@ -129,7 +130,7 @@
             {% endfor %}
             <div class="card-body card-body-smile" >
               <h5 class="card-title">{{product.title| slice:'0:31'}}....</h5>
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+              <p class="card-text fw-bold">Price: ${{product.price|intcomma}}</p>
               <a href="{% url 'frontend:product_detail' product.id %}" class="btn btn-danger fw-bold btn-sm w-100 h-auto">View Details</a>
             </div>
            

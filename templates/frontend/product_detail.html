@@ -60,7 +60,12 @@
       <p>{{product.description}}</p>
       <hr class="mt-0">
       <h3>Prize: ${{product.price|intcomma}}</h3>
-      <a href="" class="btn btn-secondary fw-bold btn-sm mt-4 w-50 h-auto">Add To Cart</a>
+      <div id="bt-alert" class=" text-success fw-bold"></div>
+      <!-- <div id="bt-alert" class="alert alert-success alert-dismissible fade show btt-alert" role="alert">
+        Item is successfully added to card
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div> -->
+      <button value="{{product.id}}" id="add-button" class="btn btn-secondary fw-bold btn-sm mt-4 w-50 h-auto">Add To Cart</button>
     </div>
   </div>
 </div>
@@ -96,5 +101,29 @@
             ProductImg.src = SmallImg[i].src;
         }
     }
+</script>
+
+
+<!-- getting the product to add to cart -->
+<script>
+  $(document).on('click', '#add-button', function (e) {
+    e.preventDefault();
+    console.log($('#add-button').val())
+    $.ajax({
+      type: 'POST',
+      url: '{% url "basket:basket_add" %}',
+      data: {
+        productid: $('#add-button').val(),
+        qty: 1,
+        csrfmiddlewaretoken: "{{csrf_token}}",
+        action: 'post'
+      },
+      success: function (json) {
+        document.getElementById("basket-qty").innerHTML = json.qty
+        document.getElementById("bt-alert").innerHTML = "Item is successfuly added to cart"
+      },
+      error: function (xhr, errmsg, err) {}
+    });
+  })
 </script>
 {% endblock %}

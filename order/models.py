@@ -7,7 +7,7 @@ from store.models import Product
 
 class Order(models.Model):
     STATUS = (
-        ('Pending', 'Pending'),
+        ('Pending, awaiting payment', 'Pending, awaiting payment'),
         ('Delivery in Progress', 'Delivery in Progress'),
         ('Delivered', 'Delivered'),
         ('Stopped by custom', 'Stopped by custom'),
@@ -17,15 +17,15 @@ class Order(models.Model):
     full_name = models.CharField(max_length=50)
     address = models.CharField(max_length=250)
     city = models.CharField(max_length=100)
-    Country = models.CharField(max_length=100, null=True, blank=True)
-    phone = models.CharField(max_length=100)
+    country = models.CharField(max_length=100, null=True, blank=True)
+    phone = models.CharField(max_length=100, null=True, blank=True)
     post_code = models.CharField(max_length=20, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     total = models.DecimalField(max_digits=9, decimal_places=2)
-    paid = models.DecimalField(max_digits=9, decimal_places=2)
-    balance = models.DecimalField(max_digits=9, decimal_places=2)
+    paid = models.DecimalField(max_digits=9, decimal_places=2, default=0)
+    sub_total = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
     order_key = models.CharField(max_length=200, null=True, blank=True)
-    status = models.CharField(max_length=150, choices=STATUS)
+    status = models.CharField(max_length=150, choices=STATUS, default='Pending, awaiting payment')
 
     class Meta:
         ordering = ('-created',)

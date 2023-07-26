@@ -129,9 +129,9 @@
                                 <td>{{order.email}}</td>
                                 <td>${{order.total|intcomma}}</td>
                                 <td>${{order.paid|intcomma}}</td>
-                                <td>${{order.balance|intcomma}}</td>
+                                <td>${{order.get_final_balance|intcomma}}</td>
                                 <td>
-                                {% if order.status == 'Pending' %}
+                                {% if order.status == 'Pending, awaiting payment' %}
                                   <strong class="text-warning">{{order.status}}</strong>
                                 {% elif order.status == 'Delivery in Progress' %}
                                   <strong class="text-primary">{{order.status}}</strong>
@@ -144,7 +144,7 @@
                                 <td><a href="{% url 'order:edit_order' order.id %}" class="btn btn-info btn-sm fw-bold text-white">Update</a></td>
                                 <!-- <td><a href="" class="btn btn-info btn-sm fw-bold text-white" data-bs-toggle="modal" data-bs-target="#edit-order{{order.id}}">Update</a></td> -->
                                 <td><a href="{% url 'order:delete_order' order.id %}" class="btn btn-danger btn-sm fw-bold text-white">Delete</a></td>
-                                <td><a href="" class="btn btn-primary btn-sm fw-bold text-white">Receipt</a></td>
+                                <td><a href="{% url 'order:view_receipt' order.id %}" class="btn btn-primary btn-sm fw-bold text-white">Receipt</a></td>
                               </tr>
 
                               <!-- update order model -->
