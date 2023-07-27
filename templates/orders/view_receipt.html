@@ -20,12 +20,13 @@
                         <!-- receipt header start here -->
                         <div class="row">
                             <div class="col-6 col-md-8 ">
-                                <img src="{% static 'images/logo-new.png' %}" class="logo">
+                                <img src="{% static 'images/logo-mg-logo.png' %}" class="logo-logo">
+                                <!-- <img src="{% static 'images/logo-mg-text.png' %}" class="logo-text"> -->
                             </div>
                             <div class="col-6 col-md-4 invoice-detail">
                                 <h4>INVOICE</h4>
                                 <p class="mb-0"># {{order.order_key}}</p>
-                                <p><strong>Issued: </strong> {{order.created}}/p>
+                                <p><strong>Issued: </strong> {{order.created}}</p>
                             </div>
                         </div>
                         <hr class="my-0">
@@ -37,7 +38,7 @@
                             </div>
                             <div class="col-6 col-md-4 billed-to">
                                 <p class="mb-1">Total Due</p>
-                                <h4 class="mb-0">#{{order.get_final_balance|intcomma}}</h4>
+                                <h4 class="mb-0">${{order.get_final_balance|intcomma}}</h4>
                                 
                             </div>
                         </div>

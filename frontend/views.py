@@ -1,13 +1,20 @@
 from django.contrib import messages
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login 
 from django.views.generic import ListView, TemplateView, FormView, DetailView
+from django.conf import settings
+
+from . import emails
+from . import forms
 
 from store.models import Product, Media
-from account.forms import RegistrationForm, UserLoginForm
+from account.forms import RegistrationForm, UserLoginForm 
+
+
 
 class HomeView(ListView):
     redirect_authenticated_user = True
@@ -57,7 +64,42 @@ class ProductDetailView(DetailView):
        context = super(ProductDetailView, self).get_context_data(**kwargs)
        context['product_images'] = Media.objects.filter(product=self.object)
        return context
-    
+
+
+class ContactView(FormView):
+    form_class = forms.ContactForm 
+    success_url = reverse_lazy('frontend:contact')
+    template_name = 'frontend/contact.html'  
+
+    def form_valid(self, form):
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+
+            final_message = render_to_string('emails/email_contact.html', 
+                            {
+                                'name': name,
+                                'email': email,
+                                'message': message,
+                                'subject': subject
+                            })
+
+            if email and message and name:
+                try:
+                    emails.email_message_send(
+                        'Message from '+ name,
+                        final_message,
+                        settings.EMAIL_HOST_USER,
+                    )
+                    messages.success(self.request, "Your message was sent successfully, we will get back to you shortly")
+                except:
+                    messages.error(self.request, 'Something went wrong, please make sure your email is correct and try again')  
+            else:
+                message.error(self.request, 'Make sure all fields are entered and valid.')  
+        return super(ContactView, self).form_valid(form)
+
 
 class RegisterUserView(FormView):
     form_class = RegistrationForm

@@ -94,7 +94,13 @@
   
                       <div class="d-flex justify-content-between">
                         <p class="mb-2">Shipping</p>
+                        {% if basket.get_subtotal_price <= 20000 %}
+                        <p class="mb-2">$0.50</p>
+                        {% elif basket.get_subtotal_price <= 45000 %}
+                        <p class="mb-2">$11,000.50</p>
+                        {% else %}
                         <p class="mb-2">$37,500.50</p>
+                        {% endif %}
                       </div>
   
                       <div class="d-flex justify-content-between mb-4">

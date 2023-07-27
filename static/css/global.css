@@ -48,8 +48,15 @@ body {
     border-color: #030058;
 }
 
-.navbar-brand img{
-    width: 250px;
+/* .navbar-brand img{
+    width: 150px;
+} */
+.navbar-brand .logo-logo{
+    width: 50px;
+}
+.navbar-brand .logo-text{
+    width: 200px;
+    padding-top: 15px;
 }
 /* banner */
 
@@ -288,6 +295,15 @@ body {
 
 #login{
     background-image: linear-gradient(rgba(0, 0, 0, 0.6),rgba(22, 13, 13, 0.404)), url(/static/images/login-now.jpg);
+    /* height: 300px; */
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#contact{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6),rgba(22, 13, 13, 0.404)), url(/static/images/contact.jpg);
     /* height: 300px; */
     background-position: center; 
     background-repeat: no-repeat; 

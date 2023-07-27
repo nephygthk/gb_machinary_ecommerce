@@ -30,9 +30,12 @@ body{
 	max-width: 100%; */
 }
 
-.logo{
-    width: 230px;
+.logo-logo{
+    width: 60px;
 }
+/* .logo-text{
+    width: 230px;
+} */
 
 .table-heaed th{
     background: var(--primary)  !important;
@@ -55,9 +58,9 @@ body{
         border: 1px solid var(--primary);
         margin: 5px;
     }
-    .logo{
+    /* .logo-logo{
         width: 140px;
-    }
+    } */
 
     .billed-to p,
     .invoice-detail p{

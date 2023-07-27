@@ -6,6 +6,7 @@ from .basket import Basket
 from store.models import Product
 from account.forms import ClientForm
 from order.models import Order, OrderItem
+from frontend import emails
 
 
 def basket_summary(request):
@@ -46,6 +47,7 @@ def checkout_order(request):
         customer = form.save()
         baskettotal = basket.get_total_price()
         basketsubtotal = basket.get_subtotal_price()
+        
         if request.user.is_authenticated:
             user_id = request.user.id
             order = Order.objects.create(user_id=user_id, full_name=customer.c_full_name, 
@@ -60,7 +62,21 @@ def checkout_order(request):
             for item in basket:
                 OrderItem.objects.create(order_id=order_id, product=item['product'], price=item['price'], quantity=item['qty'])
 
-        return redirect('basket:order_successful')
+        f_message = emails.final_message2(
+                                    customer.c_full_name, order.order_key,
+                                    order.created, customer.c_country,
+                                    customer.c_city, basket.get_total_price()
+                                    )
+        try:
+            emails.email_message_send(
+                'Order Successful',
+                f_message,
+                customer.c_email,
+            )
+        except:
+            pass 
+        finally:
+            return redirect('basket:order_successful')
     else:
         messages.error(request, 'Something went wrong, please check the form informations and try again')
         return redirect('basket:basket_summary')

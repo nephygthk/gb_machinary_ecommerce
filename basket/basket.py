@@ -45,8 +45,8 @@ class Basket:
 
         subtotal = sum(Decimal(item["price"]) * item["qty"] for item in self.basket.values())
 
-        if subtotal <= 10000 :
-            shipping = Decimal(11000.00)
+        if subtotal <= 20000 :
+            shipping = Decimal(0.00)
         elif subtotal <= 45000:
             shipping = Decimal(11000.00)
         else:

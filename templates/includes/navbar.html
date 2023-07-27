@@ -3,7 +3,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg fixed-top scroll2">
     <div class="container">
-      <a class="navbar-brand" href="#"><img src="{% static 'images/logo-new.png' %}" alt=""></a>
+      <a class="navbar-brand" href="#"><img src="{% static 'images/logo-mg-logo.png' %}" class="logo-logo"><img src="{% static 'images/logo-mg-text.png' %}" class="logo-text"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -22,9 +22,6 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'frontend:all_products' %}">Products</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
           {% else %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'frontend:all_products' %}">Products</a>
@@ -39,6 +36,9 @@
               </li>
             {% endif %}
           {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'frontend:contact' %}">Contact</a>
+          </li>
           <li class="nav-item mt-md-2 pe-2">
             <div id="google_translate_element"></div>
           </li>
