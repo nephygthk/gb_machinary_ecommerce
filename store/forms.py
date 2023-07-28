@@ -33,5 +33,5 @@ class ProductMediaForm(forms.ModelForm):
 
 MediaFormSet = inlineformset_factory(
     Product, Media, form=ProductMediaForm,
-    extra=4, can_delete=True, can_delete_extra=False
+    extra=6, can_delete=True, can_delete_extra=False
 )

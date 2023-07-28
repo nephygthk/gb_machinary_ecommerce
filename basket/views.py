@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
+from django.template.loader import render_to_string
 
 from .basket import Basket
 from store.models import Product
@@ -54,7 +55,28 @@ def checkout_order(request):
                     email=customer.   c_email, country=customer.c_country, city=customer.c_city, total=baskettotal, sub_total=basketsubtotal)
             order_id = order.pk
             for item in basket:
-                OrderItem.objects.create(order_id=order_id, product=item['product'], price=item['price'], quantity=item['qty'])
+                OrderItem.objects.create(order_id=order_id, product=item['product'], price=item['price'], 
+                                         quantity=item['qty'])
+                
+            f_message = render_to_string('emails/email_order.html', 
+                            {
+                                'name': customer.c_full_name,
+                                'order_id': order.pk,
+                                'date': order.created,
+                                'country': customer.c_country,
+                                'city': customer.c_city,
+                                'total': basket.get_total_price()
+                            })
+            try:
+                emails.email_message_send(
+                    'Order Successful',
+                    f_message,
+                    customer.c_email,
+                )
+            except:
+                pass 
+            finally:
+                return redirect('basket:order_successful')   
         else:
             order = Order.objects.create(full_name=customer.c_full_name, 
                     email=customer.   c_email, country=customer.c_country, total=baskettotal, sub_total=basketsubtotal)
@@ -62,21 +84,25 @@ def checkout_order(request):
             for item in basket:
                 OrderItem.objects.create(order_id=order_id, product=item['product'], price=item['price'], quantity=item['qty'])
 
-        f_message = emails.final_message2(
-                                    customer.c_full_name, order.order_key,
-                                    order.created, customer.c_country,
-                                    customer.c_city, basket.get_total_price()
-                                    )
-        try:
-            emails.email_message_send(
-                'Order Successful',
-                f_message,
-                customer.c_email,
-            )
-        except:
-            pass 
-        finally:
-            return redirect('basket:order_successful')
+            f_message = render_to_string('emails/email_order.html', 
+                            {
+                                'name': customer.c_full_name,
+                                'order_id': order.pk,
+                                'date': order.created,
+                                'country': customer.c_country,
+                                'city': customer.c_city,
+                                'total': basket.get_total_price()
+                            })
+            try:
+                emails.email_message_send(
+                    'Order Successful',
+                    f_message,
+                    customer.c_email,
+                )
+            except:
+                pass 
+            finally:
+                return redirect('basket:order_successful')
     else:
         messages.error(request, 'Something went wrong, please check the form informations and try again')
         return redirect('basket:basket_summary')

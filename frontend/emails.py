@@ -5,7 +5,7 @@ def email_message_send(subject, message,receiver):
     email = EmailMessage(
         subject,
         message,
-        'Global Machinary <email@email.com>',
+        'Global Machinary <contact@globalmachinary.com>',
         [receiver],
         )
     email.content_subtype = "html"

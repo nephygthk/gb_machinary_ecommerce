@@ -142,9 +142,18 @@ BASKET_SESSION_ID = 'gbbasket'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.zoho.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'tdkingzict@zohomail.com'
+# EMAIL_HOST_PASSWORD = 'youngmillzy123'
+
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.zoho.com'
+EMAIL_HOST = 'premium40.web-hosting.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'tdkingzict@zohomail.com'
-EMAIL_HOST_PASSWORD = 'youngmillzy123'
+EMAIL_HOST_USER = 'contact@globalmachinary.com'
+EMAIL_HOST_PASSWORD = 'gbmachinary7788'

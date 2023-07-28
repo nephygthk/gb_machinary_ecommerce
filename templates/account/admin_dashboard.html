@@ -18,10 +18,13 @@
         <div class="col-md-12">
             <h1>Dashboard</h1>
             <div class="row justify-content-between align-item-center">
-              <div class="col-7 col-md-10">
+              <div class="col-6 col-md-10">
                 <p class="lead mb-0">Welcome <span class="text-success fw-bold">Admin</span></p>
               </div>
-              <div class="col-5 col-md-2"><a href="{% url 'account:add_product' %}" class="btn btn-primary btn-sm fw-bold">Add new Product</a></div>
+              <div class="col-6 col-md-2">
+                  <p><a href="{% url 'account:change_password_customer' %}" class="btn btn-outline-secondary btn-sm fw-bold px-4">Settings</a> </p>  
+                  <a href="{% url 'account:add_product' %}" class="btn btn-primary btn-sm fw-bold">Add new Product</a>
+              </div>
             </div>
             
             {% if messages %}

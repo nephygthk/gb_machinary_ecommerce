@@ -91,7 +91,7 @@ class ContactView(FormView):
                     emails.email_message_send(
                         'Message from '+ name,
                         final_message,
-                        settings.EMAIL_HOST_USER,
+                        'tdkingzict@gmail.com',
                     )
                     messages.success(self.request, "Your message was sent successfully, we will get back to you shortly")
                 except:
