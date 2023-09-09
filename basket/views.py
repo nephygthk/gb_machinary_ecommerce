@@ -49,11 +49,12 @@ def checkout_order(request):
         customer = form.save()
         baskettotal = basket.get_total_price()
         basketsubtotal = basket.get_subtotal_price()
+        basketshipping = basket.get_shipping_price()
         
         if request.user.is_authenticated:
             user_id = request.user.id
             order = Order.objects.create(user_id=user_id, full_name=customer.c_full_name, 
-                    email=customer.   c_email, country=customer.c_country, city=customer.c_city, total=baskettotal, sub_total=basketsubtotal)
+                    email=customer.   c_email, country=customer.c_country, city=customer.c_city, total=baskettotal, sub_total=basketsubtotal, shipping_price=basketshipping)
             order_id = order.pk
             for item in basket:
                 OrderItem.objects.create(order_id=order_id, product=item['product'], price=item['price'], 
@@ -80,7 +81,7 @@ def checkout_order(request):
                 return redirect('basket:order_successful')   
         else:
             order = Order.objects.create(full_name=customer.c_full_name, 
-                    email=customer.   c_email, country=customer.c_country, total=baskettotal, sub_total=basketsubtotal)
+                    email=customer.   c_email, country=customer.c_country, total=baskettotal, sub_total=basketsubtotal, shipping_price=basketshipping)
             order_id = order.pk
             for item in basket:
                 OrderItem.objects.create(order_id=order_id, product=item['product'], price=item['price'], quantity=item['qty'])

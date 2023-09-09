@@ -26,6 +26,7 @@ class Order(models.Model):
     sub_total = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
     order_key = models.CharField(max_length=200, null=True, blank=True)
     status = models.CharField(max_length=150, choices=STATUS, default='Pending, awaiting payment')
+    shipping_price = models.DecimalField(max_digits=11, decimal_places=2, default=0)
 
     class Meta:
         ordering = ('-created',)
