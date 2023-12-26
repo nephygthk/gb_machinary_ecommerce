@@ -6,18 +6,18 @@
           <h3>GLOBAL MACHINARY</h3>
           <p>Ny, New Jersey, Madam , #8 New York</p>
           <p><strong>Phone: </strong>000 0000 0000</p>
-          <p><strong>Email: </strong>contact@webmail.com.ui</p>
+          <p><strong>Email: </strong>contact@globalmachinary.com</p>
         </div>
         <div class="col-md-3 wish-links">
           <h3>Helpful Links</h3>
           <a href="{% url 'frontend:about' %}">About Us</a>
           <a href="{% url 'frontend:about' %}">Services</a>
           <a href="">Resources</a>
-          <a href="">Contact</a>
+          <a href="{% url 'frontend:contact' %}">Contact</a>
         </div>
         <div class="col-md-4 wish-links">
           <h3>Useful Links</h3>
-          <a href="">Products</a>
+          <a href="{% url 'frontend:all_products' %}">Products</a>
           <a href="">Careers</a>
           <a href="">Customers</a>
         </div>
